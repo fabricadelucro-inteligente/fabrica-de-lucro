@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--gold:#D4AF37;--gold-light:#F5E6A6;--gold-dim:rgba(212,175,55,.12);--bg:#0A0A0A;--card:#111;--card2:#161616;--border:#1E1E1E;--text:#EAEAEA;--dim:#999;--muted:#666;--green:#4ADE80;--red:#F87171}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-size:13px;font-weight:700;letter-spacing:.06em;color:#fff}
+.nav-logo span{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#0A0A0A;font-size:11px;font-weight:700;letter-spacing:.1em;padding:8px 22px;border-radius:8px;text-decoration:none;transition:box-shadow .2s}
+.nav-cta:hover{box-shadow:0 0 30px rgba(212,175,55,.4)}
+
+.hero{max-width:1100px;margin:0 auto;padding:80px 24px 60px;text-align:center}
+.hero-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.2em;padding:6px 18px;border-radius:20px;border:1px solid rgba(212,175,55,.2);margin-bottom:20px}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:16px;color:var(--dim);max-width:640px;margin:0 auto 32px;line-height:1.7}
+.hero-cta{display:inline-block;background:linear-gradient(180deg,#E8C84A,#D4AF37);color:#0A0A0A;font-size:14px;font-weight:800;letter-spacing:.1em;padding:16px 48px;border-radius:12px;text-decoration:none;box-shadow:0 0 40px rgba(212,175,55,.3);transition:transform .15s,box-shadow .2s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(212,175,55,.5)}
+.hero-proof{margin-top:24px;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.hero-proof span{color:var(--gold)}
+.gline{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto;width:200px;margin-top:40px}
+
+.pain{max-width:900px;margin:0 auto;padding:60px 24px}
+.pain-title{text-align:center;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);margin-bottom:24px}
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pain-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start}
+.pain-icon{width:36px;height:36px;border-radius:8px;background:rgba(248,113,113,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--red);font-size:18px}
+.pain-text h3{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.pain-text p{font-size:11px;color:var(--dim);line-height:1.6}
+
+/* BOOK CARDS */
+.books{max-width:1100px;margin:0 auto;padding:60px 24px}
+.sec-title{text-align:center;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);margin-bottom:8px}
+.sec-h2{text-align:center;font-size:clamp(20px,3vw,30px);font-weight:800;color:#fff;margin-bottom:40px}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+
+.book-card{position:relative;border-radius:16px;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:default}
+.book-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(212,175,55,.15)}
+
+.book-cover{position:relative;height:220px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.book-cover::before{content:'';position:absolute;inset:0;z-index:0}
+.book-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.85) 100%);z-index:1}
+
+.book-cover .geo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.book-cover .geo svg{position:absolute;width:100%;height:100%;opacity:.12}
+
+.b1 .book-cover{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)}
+.b2 .book-cover{background:linear-gradient(135deg,#1a1a1a 0%,#2d1b00 50%,#4a2c00 100%)}
+.b3 .book-cover{background:linear-gradient(135deg,#0d1b0e 0%,#1a3a1a 50%,#0f2b0f 100%)}
+.b4 .book-cover{background:linear-gradient(135deg,#1b1b2f 0%,#2a1a3e 50%,#3d1f5c 100%)}
+.b5 .book-cover{background:linear-gradient(135deg,#1a1a1a 0%,#2b1a00 50%,#3d2800 100%)}
+.b6 .book-cover{background:linear-gradient(135deg,#0a1628 0%,#162d50 50%,#1a3a6a 100%)}
+.b7 .book-cover{background:linear-gradient(135deg,#1a0a0a 0%,#2d0a0a 50%,#4a1a1a 100%)}
+
+.book-vol{position:relative;z-index:2;font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--gold);margin-bottom:4px}
+.book-title{position:relative;z-index:2;font-size:20px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px}
+.book-subtitle{position:relative;z-index:2;font-size:10px;color:rgba(255,255,255,.6);line-height:1.4}
+.book-icon{position:absolute;top:16px;right:16px;z-index:2;width:44px;height:44px;border-radius:10px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.book-stripe{position:absolute;top:0;left:0;right:0;height:3px;z-index:3;background:linear-gradient(90deg,var(--gold),rgba(212,175,55,.3))}
+
+.book-body{background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 16px 16px;padding:18px 20px}
+.book-desc{font-size:11px;color:var(--dim);line-height:1.7;margin-bottom:14px}
+.book-tags{display:flex;flex-wrap:wrap;gap:6px}
+.book-tag{font-size:8px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:var(--gold-dim);color:var(--gold)}
+.book-kpi{display:flex;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.book-kpi-item{text-align:center;flex:1}
+.book-kpi-val{font-size:16px;font-weight:800;color:var(--gold);font-family:ui-monospace,monospace}
+.book-kpi-label{font-size:8px;color:var(--muted);letter-spacing:.06em}
+
+.nums{max-width:1100px;margin:0 auto;padding:50px 24px}
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.num-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center}
+.num-val{font-size:32px;font-weight:800;color:var(--gold);font-family:ui-monospace,monospace;line-height:1.1;margin-bottom:6px}
+.num-label{font-size:10px;color:var(--dim);letter-spacing:.06em}
+
+.transform{max-width:900px;margin:0 auto;padding:60px 24px}
+.tf-grid{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:center}
+.tf-col{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px}
+.tf-col h3{font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:14px}
+.tf-col.before h3{color:var(--red)}.tf-col.after h3{color:var(--green)}
+.tf-col li{font-size:11px;color:var(--dim);line-height:1.8;list-style:none;padding-left:18px;position:relative}
+.tf-col.before li::before{content:'\2717';position:absolute;left:0;color:var(--red);font-weight:700}
+.tf-col.after li::before{content:'\2713';position:absolute;left:0;color:var(--green);font-weight:700}
+.tf-arrow{text-align:center;font-size:24px;color:var(--gold)}
+
+.quote-sec{max-width:800px;margin:0 auto;padding:40px 24px;text-align:center}
+.quote-box{background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(212,175,55,.02));border:1px solid rgba(212,175,55,.2);border-radius:14px;padding:32px}
+.quote-text{font-size:15px;font-style:italic;color:var(--text);line-height:1.8;margin-bottom:12px}
+.quote-text span{color:var(--gold);font-weight:700}
+.quote-author{font-size:10px;color:var(--muted);letter-spacing:.1em}
+
+.includes{max-width:1100px;margin:0 auto;padding:60px 24px}
+.inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.inc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.inc-icon{font-size:28px;margin-bottom:10px}
+.inc-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:6px}
+.inc-desc{font-size:10px;color:var(--dim);line-height:1.6}
+
+.cta-sec{max-width:800px;margin:0 auto;padding:60px 24px;text-align:center}
+.cta-box{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:48px 32px}
+.cta-box h2{font-size:clamp(20px,3vw,28px);font-weight:800;color:#fff;margin-bottom:8px}
+.cta-box h2 em{font-style:normal;color:var(--gold)}
+.cta-box p{font-size:13px;color:var(--dim);margin-bottom:28px;line-height:1.7}
+.cta-btn{display:inline-block;background:linear-gradient(180deg,#E8C84A,#D4AF37);color:#0A0A0A;font-size:15px;font-weight:800;letter-spacing:.1em;padding:18px 56px;border-radius:12px;text-decoration:none;box-shadow:0 0 50px rgba(212,175,55,.35);transition:transform .15s,box-shadow .2s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 70px rgba(212,175,55,.55)}
+.cta-sub{margin-top:16px;font-size:10px;color:var(--muted)}
+.cta-sub span{color:var(--gold)}
+
+.guarantee{max-width:600px;margin:0 auto;padding:20px 24px 40px;text-align:center}
+.guarantee-box{border:1px solid rgba(74,222,128,.2);border-radius:12px;padding:20px;background:rgba(74,222,128,.04)}
+.guarantee-box h4{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.1em;margin-bottom:6px}
+.guarantee-box p{font-size:10px;color:var(--dim);line-height:1.6}
+
+.ftr{max-width:1100px;margin:0 auto;padding:24px;text-align:center;border-top:1px solid var(--border)}
+.ftr p{font-size:9px;color:var(--muted);letter-spacing:.1em}
+
+@media(max-width:768px){
+  .pain-grid,.num-grid{grid-template-columns:1fr 1fr}
+  .inc-grid{grid-template-columns:1fr}
+  .tf-grid{grid-template-columns:1fr;gap:16px}
+  .tf-arrow{transform:rotate(90deg)}
+  .book-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .pain-grid,.num-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <div class="nav-logo">FÁBRICA DE <span>LUCRO</span> INTELIGENTE</div>
+  <a class="nav-cta" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">QUERO A COLEÇÃO</a>
+</div></nav>
+
+<section class="hero">
+  <div class="hero-badge">COLEÇÃO COMPLETA — 7 VOLUMES + PLANILHAS + DASHBOARDS</div>
+  <h1>Transforme sua fábrica ocupada em uma <em>máquina de lucro</em></h1>
+  <p class="hero-sub">O sistema completo que conecta chão de fábrica ao P&L — sem software caro, sem consultoria externa. Apenas leitura, disciplina e execução em 90 dias.</p>
+  <a class="hero-cta" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">QUERO TRANSFORMAR MINHA FÁBRICA →</a>
+  <p class="hero-proof"><span>+50 fórmulas</span> aplicáveis · <span>8 KPIs</span> integrados · <span>7 planilhas</span> de validação · <span>7 dashboards</span> executivos</p>
+  <div class="gline"></div>
+</section>
+
+<section class="pain">
+  <div class="pain-title">VOCÊ SE IDENTIFICA COM ALGUM DESSES CENÁRIOS?</div>
+  <div class="pain-grid">
+    <div class="pain-card"><div class="pain-icon">⏱</div><div class="pain-text"><h3>12-18h/semana em relatórios</h3><p>Gestores extraindo dados do ERP, limpando planilhas e montando slides — sem gerar throughput.</p></div></div>
+    <div class="pain-card"><div class="pain-icon">📊</div><div class="pain-text"><h3>Dashboards decorativos</h3><p>Telas cheias de gráficos coloridos que raramente geram decisão e ação no mesmo dia.</p></div></div>
+    <div class="pain-card"><div class="pain-icon">🏭</div><div class="pain-text"><h3>Fábrica cheia, margem baixa</h3><p>Recorde de faturamento, mas o lucro não aparece. Custos fixos corroem a margem silenciosamente.</p></div></div>
+    <div class="pain-card"><div class="pain-icon">💸</div><div class="pain-text"><h3>Refugo saindo pelos fundos</h3><p>Celebra-se o volume, mas ignora-se o scrap e retrabalho que consomem o dobro de mão de obra e energia.</p></div></div>
+  </div>
+</section>
+
+<!-- BOOK CARDS -->
+<section class="books">
+  <div class="sec-title">A JORNADA COMPLETA</div>
+  <h2 class="sec-h2">7 Volumes — Do Chão de Fábrica ao Board</h2>
+  <div class="book-grid">
+
+    <!-- VOL 01 -->
+    <div class="book-card b1">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><polygon points="0,0 200,40 0,120" fill="#D4AF37"/><polygon points="400,0 200,40 400,100" fill="#D4AF37"/><polygon points="0,220 200,160 400,220" fill="#D4AF37"/><polygon points="200,40 100,130 200,160 300,130" fill="#D4AF37"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">🔍</div>
+        <div class="book-vol">VOLUME 01</div>
+        <div class="book-title">Ativos Ocultos</div>
+        <div class="book-subtitle">O Paradoxo da Fábrica Ocupada</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">Descubra a capacidade escondida que já existe na sua fábrica. MCU revela quanto da capacidade real você usa — e quanto lucro está deixando na mesa.</div>
+        <div class="book-tags"><span class="book-tag">MCU ≥85%</span><span class="book-tag">CFU</span><span class="book-tag">4 VILÕES</span><span class="book-tag">DILUIÇÃO DE CUSTO</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">−12%</div><div class="book-kpi-label">CUSTO FIXO/UN</div></div><div class="book-kpi-item"><div class="book-kpi-val">+1,8</div><div class="book-kpi-label">P.P. MARGEM</div></div><div class="book-kpi-item"><div class="book-kpi-val">+10</div><div class="book-kpi-label">P.P. MCU</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 02 -->
+    <div class="book-card b2">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><circle cx="200" cy="110" r="80" fill="none" stroke="#D4AF37" stroke-width="1"/><circle cx="200" cy="110" r="60" fill="none" stroke="#D4AF37" stroke-width="1"/><circle cx="200" cy="110" r="40" fill="none" stroke="#D4AF37" stroke-width="1"/><line x1="200" y1="30" x2="200" y2="190" stroke="#D4AF37" stroke-width=".5"/><line x1="120" y1="110" x2="280" y2="110" stroke="#D4AF37" stroke-width=".5"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">⚙️</div>
+        <div class="book-vol">VOLUME 02</div>
+        <div class="book-title">OEE na Prática</div>
+        <div class="book-subtitle">Disponibilidade × Performance × Qualidade</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">MCU cheio não garante eficiência. OEE revela onde a fábrica perde: disponibilidade, performance ou qualidade. Kaizen de 7 dias incluso.</div>
+        <div class="book-tags"><span class="book-tag">OEE ≥85%</span><span class="book-tag">3 PILARES</span><span class="book-tag">WORLD CLASS</span><span class="book-tag">KAIZEN 7 DIAS</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">85%</div><div class="book-kpi-label">WORLD CLASS</div></div><div class="book-kpi-item"><div class="book-kpi-val">90×95×99</div><div class="book-kpi-label">D × P × Q</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 03 -->
+    <div class="book-card b3">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><path d="M50,200 L100,80 L150,140 L200,60 L250,120 L300,40 L350,100" fill="none" stroke="#D4AF37" stroke-width="1.5"/><line x1="50" y1="200" x2="350" y2="200" stroke="#D4AF37" stroke-width=".5"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">🎯</div>
+        <div class="book-vol">VOLUME 03</div>
+        <div class="book-title">Zero Desperdício</div>
+        <div class="book-subtitle">Scrap, FPY e Custo por Unidade</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">A fábrica só deve pagar por peças boas e vendáveis. Scrap, FPY e Downtime traduzidos em R$ de perda — e como eliminá-los.</div>
+        <div class="book-tags"><span class="book-tag">SCRAP <2%</span><span class="book-tag">FPY ≥98%</span><span class="book-tag">POKA-YOKE</span><span class="book-tag">CPU</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">+2,4</div><div class="book-kpi-label">P.P. MARGEM</div></div><div class="book-kpi-item"><div class="book-kpi-val">R$0,40</div><div class="book-kpi-label">ECONOMIA/UN</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 04 -->
+    <div class="book-card b4">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><rect x="60" y="40" width="60" height="140" rx="4" fill="none" stroke="#D4AF37" stroke-width="1"/><rect x="170" y="70" width="60" height="110" rx="4" fill="none" stroke="#D4AF37" stroke-width="1"/><rect x="280" y="30" width="60" height="150" rx="4" fill="none" stroke="#D4AF37" stroke-width="1"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">🏃</div>
+        <div class="book-vol">VOLUME 04</div>
+        <div class="book-title">Chão de Fábrica Ágil</div>
+        <div class="book-subtitle">Rituais, Stand-up e Roadmap 90 Dias</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">Rituais diários de 15 minutos que transformam indicadores em ação. 5 Dimensões, Stand-up e Roadmap de 90 dias.</div>
+        <div class="book-tags"><span class="book-tag">STAND-UP 15 MIN</span><span class="book-tag">5 DIMENSÕES</span><span class="book-tag">SA ≥95%</span><span class="book-tag">OTIF</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">15</div><div class="book-kpi-label">MIN/DIA</div></div><div class="book-kpi-item"><div class="book-kpi-val">90</div><div class="book-kpi-label">DIAS ROADMAP</div></div><div class="book-kpi-item"><div class="book-kpi-val">≤2</div><div class="book-kpi-label">KPIs/TRIMESTRE</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 05 -->
+    <div class="book-card b5">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><polygon points="200,20 380,200 20,200" fill="none" stroke="#D4AF37" stroke-width="1"/><polygon points="200,60 340,180 60,180" fill="none" stroke="#D4AF37" stroke-width="1"/><polygon points="200,100 300,160 100,160" fill="none" stroke="#D4AF37" stroke-width="1"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">📈</div>
+        <div class="book-vol">VOLUME 05</div>
+        <div class="book-title">Indicadores da Fábrica ao Resultado</div>
+        <div class="book-subtitle">8 KPIs × 5 Dimensões × P&L</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">8 KPIs × 5 Dimensões integrados ao P&L. Cada melhoria operacional traduzida em margem — a ponte entre engenharia e finanças.</div>
+        <div class="book-tags"><span class="book-tag">8 KPIs</span><span class="book-tag">5 DIMENSÕES</span><span class="book-tag">SIMULAÇÃO P&L</span><span class="book-tag">+2,4 P.P.</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">8</div><div class="book-kpi-label">KPIs</div></div><div class="book-kpi-item"><div class="book-kpi-val">5</div><div class="book-kpi-label">DIMENSÕES</div></div><div class="book-kpi-item"><div class="book-kpi-val">1</div><div class="book-kpi-label">P&L INTEGRADO</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 06 -->
+    <div class="book-card b6">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><line x1="40" y1="40" x2="360" y2="40" stroke="#D4AF37" stroke-width=".5"/><line x1="40" y1="80" x2="360" y2="80" stroke="#D4AF37" stroke-width=".5"/><line x1="40" y1="120" x2="360" y2="120" stroke="#D4AF37" stroke-width=".5"/><line x1="40" y1="160" x2="360" y2="160" stroke="#D4AF37" stroke-width=".5"/><line x1="40" y1="200" x2="360" y2="200" stroke="#D4AF37" stroke-width=".5"/><rect x="60" y="40" width="80" height="160" rx="2" fill="#D4AF37" opacity=".15"/><rect x="160" y="80" width="80" height="120" rx="2" fill="#D4AF37" opacity=".1"/><rect x="260" y="120" width="80" height="80" rx="2" fill="#D4AF37" opacity=".08"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">💰</div>
+        <div class="book-vol">VOLUME 06</div>
+        <div class="book-title">DRE Executiva</div>
+        <div class="book-subtitle">Da Receita Bruta ao Lucro Líquido</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">Da Receita Bruta ao Lucro Líquido. Análise Vertical, benchmarks por setor, EBITDA, cobertura de juros e plano de ação 90 dias.</div>
+        <div class="book-tags"><span class="book-tag">DRE CASCATA</span><span class="book-tag">EBITDA</span><span class="book-tag">MARGEM LÍQUIDA</span><span class="book-tag">BENCHMARKS</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">15</div><div class="book-kpi-label">LINHAS DRE</div></div><div class="book-kpi-item"><div class="book-kpi-val">5</div><div class="book-kpi-label">SETORES</div></div><div class="book-kpi-item"><div class="book-kpi-val">90</div><div class="book-kpi-label">DIAS PLANO</div></div></div>
+      </div>
+    </div>
+
+    <!-- VOL 07 -->
+    <div class="book-card b7">
+      <div class="book-cover">
+        <div class="geo"><svg viewBox="0 0 400 220"><circle cx="200" cy="110" r="70" fill="none" stroke="#D4AF37" stroke-width="1"/><circle cx="140" cy="90" r="50" fill="none" stroke="#D4AF37" stroke-width=".5"/><circle cx="260" cy="130" r="50" fill="none" stroke="#D4AF37" stroke-width=".5"/><line x1="140" y1="90" x2="200" y2="110" stroke="#D4AF37" stroke-width=".5"/><line x1="200" y1="110" x2="260" y2="130" stroke="#D4AF37" stroke-width=".5"/></svg></div>
+        <div class="book-stripe"></div>
+        <div class="book-icon">🤖</div>
+        <div class="book-vol">VOLUME 07</div>
+        <div class="book-title">Inteligência Industrial</div>
+        <div class="book-subtitle">IA + Prompts + Business Case para o Board</div>
+      </div>
+      <div class="book-body">
+        <div class="book-desc">IA como acelerador: prompts industriais que transformam dados brutos em diagnóstico em minutos. Business Case de 1 página para o Board.</div>
+        <div class="book-tags"><span class="book-tag">PROMPTS IA</span><span class="book-tag">PERDAS OCULTAS</span><span class="book-tag">ROI / PAYBACK</span><span class="book-tag">BUSINESS CASE</span></div>
+        <div class="book-kpi"><div class="book-kpi-item"><div class="book-kpi-val">166%</div><div class="book-kpi-label">ROI</div></div><div class="book-kpi-item"><div class="book-kpi-val">4,5</div><div class="book-kpi-label">MESES PAYBACK</div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="nums">
+  <div class="num-grid">
+    <div class="num-card"><div class="num-val">+50</div><div class="num-label">Fórmulas aplicáveis</div></div>
+    <div class="num-card"><div class="num-val">7</div><div class="num-label">Planilhas de validação</div></div>
+    <div class="num-card"><div class="num-val">7</div><div class="num-label">Dashboards executivos</div></div>
+    <div class="num-card"><div class="num-val">90</div><div class="num-label">Dias para resultados</div></div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section class="transform">
+  <div class="sec-title">A TRANSFORMAÇÃO</div>
+  <h2 class="sec-h2">Antes vs. Depois da Coleção</h2>
+  <div class="tf-grid">
+    <div class="tf-col before">
+      <h3>❌ ANTES</h3>
+      <ul>
+        <li>Indicadores viram decoração gerencial</li>
+        <li>12-18h/semana em relatórios manuais</li>
+        <li>Fábrica cheia, margem apertada</li>
+        <li>Engenheiro e CFO falam línguas diferentes</li>
+        <li>Refugo e retrabalho invisíveis no P&L</li>
+        <li>Decisões baseadas em feeling</li>
+      </ul>
+    </div>
+    <div class="tf-arrow">→</div>
+    <div class="tf-col after">
+      <h3>✅ DEPOIS</h3>
+      <ul>
+        <li>Cada indicador é gatilho de ação</li>
+        <li>Stand-up de 15 min substitui reuniões longas</li>
+        <li>MCU otimizado dilui custos e expande margem</li>
+        <li>Business Case em linguagem de ROI e Payback</li>
+        <li>Cada perda quantificada em R$/mês</li>
+        <li>Decisões orientadas por dados e resultado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-sec">
+  <div class="quote-box">
+    <p class="quote-text">"Empresas que não dominam seus números são <span>governadas pela sorte</span>. Monitorar é necessário. Agir é o que muda o resultado."</p>
+    <p class="quote-author">— ALAN F. TORRES · FÁBRICA DE LUCRO INTELIGENTE</p>
+  </div>
+</section>
+
+<!-- INCLUDES -->
+<section class="includes">
+  <div class="sec-title">O QUE VOCÊ RECEBE</div>
+  <h2 class="sec-h2">Tudo incluso na coleção</h2>
+  <div class="inc-grid">
+    <div class="inc-card"><div class="inc-icon">📘</div><div class="inc-title">7 E-books Completos</div><div class="inc-desc">Metodologia passo a passo, do MCU à Inteligência Industrial com IA. Cada volume com fórmulas, exemplos numéricos e plano de ação.</div></div>
+    <div class="inc-card"><div class="inc-icon">📊</div><div class="inc-title">7 Planilhas de Validação</div><div class="inc-desc">Excel com manual, dicionário técnico, fórmulas interativas e dashboard executivo. Valide cada conceito com seus dados reais.</div></div>
+    <div class="inc-card"><div class="inc-icon">🖥️</div><div class="inc-title">7 Dashboards Interativos</div><div class="inc-desc">HTML+JS funcional com tema dark premium. Inputs editáveis, recálculo automático e resumo executivo para o Board.</div></div>
+    <div class="inc-card"><div class="inc-icon">🎯</div><div class="inc-title">Roadmap 90 Dias</div><div class="inc-desc">Roteiro detalhado: Dias 1-5 identificação, 6-15 rituais, 16-90 execução. Sem software caro — papel, caneta e Excel.</div></div>
+    <div class="inc-card"><div class="inc-icon">🤖</div><div class="inc-title">Prompts Industriais (IA)</div><div class="inc-desc">Framework de 4 variáveis para transformar dados do ERP em diagnóstico executivo em minutos usando inteligência artificial.</div></div>
+    <div class="inc-card"><div class="inc-icon">💼</div><div class="inc-title">Templates para o Board</div><div class="inc-desc">Business Case de 1 página, e-mail para CFO, relatório semanal de perdas — tudo pronto para apresentar à diretoria.</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <div class="cta-box">
+    <h2>Pronto para transformar eficiência em <em>lucro mensurável</em>?</h2>
+    <p>7 volumes · 7 planilhas · 7 dashboards · +50 fórmulas · Roadmap 90 dias<br>Tudo que você precisa para conectar o chão de fábrica ao resultado financeiro.</p>
+    <a class="cta-btn" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">GARANTIR MINHA COLEÇÃO AGORA →</a>
+    <p class="cta-sub">Acesso imediato após a compra · <span>Pagamento seguro via Kiwify</span></p>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="guarantee-box">
+    <h4>✅ GARANTIA DE SATISFAÇÃO</h4>
+    <p>Se em 7 dias você sentir que o conteúdo não entrega o que promete, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.</p>
+  </div>
+</section>
+
+<footer class="ftr">
+  <p>FÁBRICA DE LUCRO INTELIGENTE · ALAN F. TORRES · TODOS OS DIREITOS RESERVADOS</p>
+</footer>
+
+</body>
+</html>
