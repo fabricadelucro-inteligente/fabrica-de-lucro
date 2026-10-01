@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chão de Fábrica Ágil — Fábrica de Lucro Inteligente</title>
+<style>
+:root{--gold:#D4AF37;--gold-light:#F5E6A6;--gold-dim:rgba(212,175,55,.12);--bg:#0A0A0A;--card:#111;--card2:#161616;--border:#1E1E1E;--text:#EAEAEA;--dim:#999;--muted:#666;--green:#4ADE80;--red:#F87171;--blue:#60A5FA}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-back{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--dim);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#0A0A0A;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 20px;border-radius:8px;text-decoration:none;transition:box-shadow .2s}
+.nav-cta:hover{box-shadow:0 0 30px rgba(212,175,55,.4)}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.header{padding:60px 24px 40px;text-align:center;max-width:900px;margin:0 auto}
+.vol-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.2em;padding:6px 18px;border-radius:20px;border:1px solid rgba(212,175,55,.2);margin-bottom:18px}
+.header h1{font-size:clamp(26px,4.5vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
+.header .sub{font-size:15px;color:var(--dim);max-width:620px;margin:0 auto;line-height:1.7}
+.gline{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:200px;margin:32px auto 0}
+.intro{background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(212,175,55,.01));border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:28px;margin:40px 0}
+.intro h2{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold);margin-bottom:10px}
+.intro p{font-size:14px;color:var(--text);line-height:1.8}
+.section{margin:40px 0}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);margin-bottom:20px;text-align:center}
+.mod-grid{display:grid;gap:16px}
+.mod{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;overflow:hidden}
+.mod::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--gold),rgba(212,175,55,.2))}
+.mod-num{font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--muted);margin-bottom:6px}
+.mod h3{font-size:17px;font-weight:800;color:#fff;margin-bottom:10px}
+.mod p{font-size:13px;color:var(--dim);line-height:1.8;margin-bottom:12px}
+.formula{background:#0d0d0d;border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;color:var(--gold-light);margin:12px 0;overflow-x:auto}
+.meta-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:var(--green);font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;margin:4px 6px 4px 0}
+.example{background:var(--card2);border-radius:8px;padding:14px 16px;margin-top:12px;font-size:12px;color:var(--dim);line-height:1.8}
+.example b{color:var(--text)}
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.kpi{flex:1;min-width:120px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.kpi-v{font-size:24px;font-weight:800;color:var(--gold);font-family:ui-monospace,monospace;line-height:1.1}
+.kpi-l{font-size:9px;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.steps{list-style:none;counter-reset:s}
+.steps li{position:relative;padding:10px 0 10px 40px;font-size:13px;color:var(--dim);line-height:1.7;counter-increment:s;border-bottom:1px solid var(--border)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;background:var(--gold-dim);border:1px solid rgba(212,175,55,.3);border-radius:7px;color:var(--gold);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cta-sec{margin:56px 0 20px;text-align:center}
+.cta-box{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:40px 28px}
+.cta-box h2{font-size:clamp(18px,3vw,24px);font-weight:800;color:#fff;margin-bottom:10px}
+.cta-box h2 em{font-style:normal;color:var(--gold)}
+.cta-box p{font-size:13px;color:var(--dim);margin-bottom:24px}
+.cta-btn{display:inline-block;background:linear-gradient(180deg,#E8C84A,#D4AF37);color:#0A0A0A;font-size:14px;font-weight:800;letter-spacing:.08em;padding:16px 44px;border-radius:12px;text-decoration:none;box-shadow:0 0 40px rgba(212,175,55,.3);transition:transform .15s,box-shadow .2s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(212,175,55,.5)}
+.nextvol{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:16px;text-decoration:none;transition:border-color .2s,transform .2s}
+.nextvol:hover{border-color:rgba(212,175,55,.4);transform:translateX(4px)}
+.nextvol-l{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.nextvol-t{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
+.nextvol-arrow{font-size:22px;color:var(--gold)}
+.ftr{max-width:900px;margin:40px auto 0;padding:24px;text-align:center;border-top:1px solid var(--border)}
+.ftr p{font-size:9px;color:var(--muted);letter-spacing:.1em}
+@media(max-width:600px){.kpi-row{flex-direction:column}}
+
+.header{background:linear-gradient(135deg,#1b1b2f 0%,#2a1a3e 50%,#3d1f5c 100%)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a class="nav-back" href="../index.html">← VOLTAR À COLEÇÃO</a>
+  <a class="nav-cta" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">QUERO A COLEÇÃO</a>
+</div></nav>
+
+<header class="header">
+  <div class="vol-badge">VOLUME 04</div>
+  <h1>Chão de Fábrica Ágil</h1>
+  <p class="sub">Rituais, Stand-up e Roadmap 90 Dias</p>
+  <div class="gline"></div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <h2>SOBRE ESTE VOLUME</h2>
+    <p>Conhecer a teoria não basta se os números ficam em planilhas que ninguém olha. O erro de 'monitorar por monitorar' transforma indicadores em quadros bonitos para a diretoria, mas inúteis para o resultado diário. Este volume ensina a criar ritos de implementação em 90 dias — reuniões de 15 minutos e disciplina diária — sem softwares externos: papel, caneta e Excel básico.</p>
+  </div>
+
+  <div class="kpi-row"><div class="kpi"><div class="kpi-v">15</div><div class="kpi-l">MIN/DIA</div></div><div class="kpi"><div class="kpi-v">90</div><div class="kpi-l">DIAS ROADMAP</div></div><div class="kpi"><div class="kpi-v">≤2</div><div class="kpi-l">KPIs/TRIMESTRE</div></div></div>
+
+  <div class="section">
+    <div class="sec-label">O QUE VOCÊ VAI APRENDER</div>
+    <div class="mod-grid">
+        <div class="mod">
+          <div class="mod-num">MÓDULO 1</div>
+          <h3>Schedule Attainment</h3>
+          <p>Mede o grau de aderência entre o planejado pelo PCP e o realmente entregue pela produção. O plano saiu do papel?</p>
+          <div class="formula">Schedule Attainment (%) = (Volume Real ÷ Volume Planejado) × 100</div><span class="meta-pill">🎯 ≥ 95% meta saudável</span><div class="example"><b>Exemplo:</b> plano de 10.000 unidades, entrega de 9.200 → 92%. Abaixo de 95% surgem fretes emergenciais e estoques inflados.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 2</div>
+          <h3>O Quadro das 5 Dimensões</h3>
+          <p>Um quadro branco simples dividido em 5 colunas torna visível o equilíbrio do negócio: Capacidade (MCU), Eficiência (OEE), Tempo (Downtime), Custo (Cost Per Unit) e Qualidade. Pinte de Verde (na meta), Amarelo (alerta) ou Vermelho (abaixo).</p>
+          
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 3</div>
+          <h3>Daily Stand-up: 15 Minutos em Pé</h3>
+          <p>A rotina inegociável: horário fixo, rigorosamente em pé diante do quadro, máximo 15 minutos. Sem cadeiras, sem PowerPoint. Roteiro de 3 colunas: Ontem (o número do indicador prioritário e a maior perda) | Problema (o que causou o desvio) | Ação de hoje.</p>
+          
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 4</div>
+          <h3>Resolvendo Impasses entre PCP e Produção</h3>
+          <p>O conflito clássico: o PCP culpa a produção pelo Schedule Attainment baixo; a produção culpa o PCP por setups excessivos. Use um mediador neutro durante o Daily. Soluções: sequenciamento por similaridade de setup, janelas de flexibilidade, lote mínimo econômico e regras claras de priorização.</p>
+          
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 5</div>
+          <h3>Alinhando a Operação com a Controladoria</h3>
+          <p>Uma vez por mês, realize a Reunião Mensal de Fechamento (máx. 60 min) com Diretor de Operações + Controller: avalie os indicadores prioritários, apresente o impacto em R$ (custo unitário, economia de scrap) e tome a decisão estratégica do próximo gargalo.</p>
+          
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 6</div>
+          <h3>Roteiro de 90 Dias</h3>
+          <p>Tudo executável com papel, caneta, Excel básico e reuniões rápidas — sem softwares externos.</p>
+          <ul class="steps"><li>Dias 1–5 (Identificação): monte o quadro e colete dados dos últimos 30 dias; escolha os 2 indicadores mais distantes das metas</li><li>Dias 6–15 (Ritos): implemente o Daily Stand-up em horário fixo, em pé, 15 min; treine o time no roteiro de 3 colunas</li><li>Dias 16–90 (Execução): execute, revise o quadro e meça resultados. Regra de ouro: máximo 2 indicadores prioritários por trimestre</li></ul>
+        </div></div>
+  </div>
+
+  <div class="cta-sec">
+    <div class="cta-box">
+      <h2>Quer aplicar isso na sua <em>fábrica</em>?</h2>
+      <p>Este volume faz parte da coleção completa — 7 volumes + planilhas + dashboards.</p>
+      <a class="cta-btn" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">GARANTIR A COLEÇÃO →</a>
+    </div>
+    <a class="nextvol" href="volume-05.html">
+          <div><div class="nextvol-l">PRÓXIMO VOLUME</div><div class="nextvol-t">Indicadores da Fábrica ao Resultado</div></div>
+          <div class="nextvol-arrow">→</div></a>
+  </div>
+</div>
+
+<footer class="ftr">
+  <p>FÁBRICA DE LUCRO INTELIGENTE · ALAN F. TORRES · TODOS OS DIREITOS RESERVADOS</p>
+</footer>
+</body>
+</html>

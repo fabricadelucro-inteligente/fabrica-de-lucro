@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicadores da Fábrica ao Resultado — Fábrica de Lucro Inteligente</title>
+<style>
+:root{--gold:#D4AF37;--gold-light:#F5E6A6;--gold-dim:rgba(212,175,55,.12);--bg:#0A0A0A;--card:#111;--card2:#161616;--border:#1E1E1E;--text:#EAEAEA;--dim:#999;--muted:#666;--green:#4ADE80;--red:#F87171;--blue:#60A5FA}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-back{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--dim);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#0A0A0A;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 20px;border-radius:8px;text-decoration:none;transition:box-shadow .2s}
+.nav-cta:hover{box-shadow:0 0 30px rgba(212,175,55,.4)}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.header{padding:60px 24px 40px;text-align:center;max-width:900px;margin:0 auto}
+.vol-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.2em;padding:6px 18px;border-radius:20px;border:1px solid rgba(212,175,55,.2);margin-bottom:18px}
+.header h1{font-size:clamp(26px,4.5vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
+.header .sub{font-size:15px;color:var(--dim);max-width:620px;margin:0 auto;line-height:1.7}
+.gline{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);width:200px;margin:32px auto 0}
+.intro{background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(212,175,55,.01));border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:28px;margin:40px 0}
+.intro h2{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold);margin-bottom:10px}
+.intro p{font-size:14px;color:var(--text);line-height:1.8}
+.section{margin:40px 0}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--gold);margin-bottom:20px;text-align:center}
+.mod-grid{display:grid;gap:16px}
+.mod{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;overflow:hidden}
+.mod::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--gold),rgba(212,175,55,.2))}
+.mod-num{font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--muted);margin-bottom:6px}
+.mod h3{font-size:17px;font-weight:800;color:#fff;margin-bottom:10px}
+.mod p{font-size:13px;color:var(--dim);line-height:1.8;margin-bottom:12px}
+.formula{background:#0d0d0d;border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:14px 16px;font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;color:var(--gold-light);margin:12px 0;overflow-x:auto}
+.meta-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:var(--green);font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;margin:4px 6px 4px 0}
+.example{background:var(--card2);border-radius:8px;padding:14px 16px;margin-top:12px;font-size:12px;color:var(--dim);line-height:1.8}
+.example b{color:var(--text)}
+.kpi-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.kpi{flex:1;min-width:120px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.kpi-v{font-size:24px;font-weight:800;color:var(--gold);font-family:ui-monospace,monospace;line-height:1.1}
+.kpi-l{font-size:9px;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.steps{list-style:none;counter-reset:s}
+.steps li{position:relative;padding:10px 0 10px 40px;font-size:13px;color:var(--dim);line-height:1.7;counter-increment:s;border-bottom:1px solid var(--border)}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;background:var(--gold-dim);border:1px solid rgba(212,175,55,.3);border-radius:7px;color:var(--gold);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.cta-sec{margin:56px 0 20px;text-align:center}
+.cta-box{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:40px 28px}
+.cta-box h2{font-size:clamp(18px,3vw,24px);font-weight:800;color:#fff;margin-bottom:10px}
+.cta-box h2 em{font-style:normal;color:var(--gold)}
+.cta-box p{font-size:13px;color:var(--dim);margin-bottom:24px}
+.cta-btn{display:inline-block;background:linear-gradient(180deg,#E8C84A,#D4AF37);color:#0A0A0A;font-size:14px;font-weight:800;letter-spacing:.08em;padding:16px 44px;border-radius:12px;text-decoration:none;box-shadow:0 0 40px rgba(212,175,55,.3);transition:transform .15s,box-shadow .2s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(212,175,55,.5)}
+.nextvol{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-top:16px;text-decoration:none;transition:border-color .2s,transform .2s}
+.nextvol:hover{border-color:rgba(212,175,55,.4);transform:translateX(4px)}
+.nextvol-l{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.nextvol-t{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
+.nextvol-arrow{font-size:22px;color:var(--gold)}
+.ftr{max-width:900px;margin:40px auto 0;padding:24px;text-align:center;border-top:1px solid var(--border)}
+.ftr p{font-size:9px;color:var(--muted);letter-spacing:.1em}
+@media(max-width:600px){.kpi-row{flex-direction:column}}
+
+.header{background:linear-gradient(135deg,#1a1a1a 0%,#2b1a00 50%,#3d2800 100%)}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a class="nav-back" href="../index.html">← VOLTAR À COLEÇÃO</a>
+  <a class="nav-cta" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">QUERO A COLEÇÃO</a>
+</div></nav>
+
+<header class="header">
+  <div class="vol-badge">VOLUME 05</div>
+  <h1>Indicadores da Fábrica ao Resultado</h1>
+  <p class="sub">8 KPIs × 5 Dimensões × P&L</p>
+  <div class="gline"></div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <h2>SOBRE ESTE VOLUME</h2>
+    <p>Este volume é a ponte entre engenharia e finanças: integra 8 KPIs organizados em 5 Dimensões diretamente ao P&L. Cada indicador deve enxergar três camadas de impacto — Operação, Mercado e Cliente — e cada melhoria operacional é traduzida em margem. Se um número não gera ação, ele vira gatilho de ação ou sai do painel.</p>
+  </div>
+
+  <div class="kpi-row"><div class="kpi"><div class="kpi-v">8</div><div class="kpi-l">KPIs</div></div><div class="kpi"><div class="kpi-v">5</div><div class="kpi-l">DIMENSÕES</div></div><div class="kpi"><div class="kpi-v">+2,4</div><div class="kpi-l">P.P. MARGEM</div></div></div>
+
+  <div class="section">
+    <div class="sec-label">O QUE VOCÊ VAI APRENDER</div>
+    <div class="mod-grid">
+        <div class="mod">
+          <div class="mod-num">MÓDULO 1</div>
+          <h3>As 5 Dimensões da Performance Industrial</h3>
+          <p>Para gerar valor de forma sustentável, a fábrica equilibra cinco dimensões: Capacidade (quanto do potencial é aproveitado), Eficiência (quão bem as máquinas trabalham), Qualidade (quanto se produz sem retrabalho), Tempo (ritmo de entrega) e Custo (o resumo financeiro de tudo).</p>
+          
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 2</div>
+          <h3>Dimensão Capacidade — MCU</h3>
+          <p>Grau de aproveitamento real da fábrica versus o potencial teórico de engenharia. MCU baixo infla o custo unitário.</p>
+          <div class="formula">MCU (%) = (Volume Produzido ÷ Capacidade Teórica) × 100</div><span class="meta-pill">🎯 ≥ 85%</span><div class="example">Cada 10 p.p. de ganho de MCU (faixa 80–90%) reduz custo fixo unitário em até 12% e adiciona ~+1,8 p.p. na margem bruta.</div>
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 3</div>
+          <h3>Dimensão Eficiência — OEE</h3>
+          <p>Quão bem o equipamento produz de forma disponível, rápida e com qualidade no tempo planejado.</p>
+          <div class="formula">OEE = Disponibilidade × Performance × Qualidade</div><span class="meta-pill">🎯 85% World Class</span><div class="example"><b>Exemplo:</b> 90% × 85% × 95% = 72,7% ≈ 73%. A perda de 27% está espalhada — foque primeiro no maior gargalo (aqui, Performance).</div>
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 4</div>
+          <h3>Dimensão Qualidade — Scrap e FPY</h3>
+          <p>Scrap é o custo direto da perda; FPY (First Pass Yield) revela o retrabalho oculto. Scrap baixo com FPY ruim esconde custo de retrabalho.</p>
+          <div class="formula">FPY (%) = (Peças Boas na 1ª Passagem ÷ Peças Produzidas) × 100</div><span class="meta-pill">🎯 Scrap < 2%</span><span class="meta-pill">🎯 FPY ≥ 98%</span>
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 5</div>
+          <h3>Dimensão Tempo — Downtime e Throughput</h3>
+          <p>Pareto típico: 80% do tempo parado vem de 20% das causas (Setups/Trocas ~38% e Quebras ~27%). Use o Throughput real para o PCP prometer prazos realistas.</p>
+          <div class="formula">Downtime (%) = (Tempo de Parada ÷ Tempo Planejado) × 100</div><span class="meta-pill">🎯 < 5%</span>
+        </div>
+        <div class="mod">
+          <div class="mod-num">MÓDULO 6</div>
+          <h3>Dimensão Custo — Cost Per Unit e Tradução Financeira</h3>
+          <p>Reduzindo scrap e downtime e elevando OEE, o volume bom sobe com o mesmo custo e o custo unitário cai.</p>
+          <div class="formula">Custo/Unidade = Custos de Conversão ÷ Unidades Boas Produzidas</div><div class="example"><b>Exemplo:</b> R$500.000 ÷ 100.000 = R$5,00/un. Com 108.600 un boas → ~R$4,60 (−8%), adicionando +2,4 p.p. na margem líquida.</div>
+        </div></div>
+  </div>
+
+  <div class="cta-sec">
+    <div class="cta-box">
+      <h2>Quer aplicar isso na sua <em>fábrica</em>?</h2>
+      <p>Este volume faz parte da coleção completa — 7 volumes + planilhas + dashboards.</p>
+      <a class="cta-btn" href="https://pay.kiwify.com.br/oXE2VpO" target="_blank">GARANTIR A COLEÇÃO →</a>
+    </div>
+    <a class="nextvol" href="volume-06.html">
+          <div><div class="nextvol-l">PRÓXIMO VOLUME</div><div class="nextvol-t">DRE Executiva</div></div>
+          <div class="nextvol-arrow">→</div></a>
+  </div>
+</div>
+
+<footer class="ftr">
+  <p>FÁBRICA DE LUCRO INTELIGENTE · ALAN F. TORRES · TODOS OS DIREITOS RESERVADOS</p>
+</footer>
+</body>
+</html>
